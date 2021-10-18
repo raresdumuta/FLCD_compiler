@@ -1,4 +1,4 @@
-package DataSet;
+package Lab2.DataSet;
 
 import java.util.Arrays;
 
