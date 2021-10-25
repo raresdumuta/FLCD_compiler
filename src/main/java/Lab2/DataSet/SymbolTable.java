@@ -33,7 +33,6 @@ public class SymbolTable {
         // no collisions
         if(symbolTable[hashValueOfKey] == null){
             symbolTable[hashValueOfKey] = keyInSymbolTable;
-            System.out.println("Insert " + keyInSymbolTable + " at position " + hashValueOfKey);
             return true;
         }
         //collision with Linear Probing
@@ -44,7 +43,6 @@ public class SymbolTable {
 
         if (symbolTable[positionInStAtHashPosition] == null){
             symbolTable[positionInStAtHashPosition] = keyInSymbolTable;
-            System.out.println("Insert " + keyInSymbolTable + " at position " + positionInStAtHashPosition);
             return true;
         }
         return false;
@@ -55,7 +53,6 @@ public class SymbolTable {
         while (symbolTable[hashValueOfKey]!=null){
             if(symbolTable[hashValueOfKey].equalsIgnoreCase(keyInSymbolTable)){
                 // we return the position
-                System.out.println("Found " + symbolTable[hashValueOfKey] + " at position " + hashValueOfKey);
                 return hashValueOfKey;
             }
             hashValueOfKey++;

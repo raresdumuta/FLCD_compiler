@@ -1,0 +1,12 @@
+START
+ int a, div; bool prime;
+prime : true;
+div : 2;
+read(a);
+ while ( div < a / 2 and prime = true ) {
+if ( a % div = 0 ) {
+ prime : false;
+}
+ div : div + 1;
+ }
+END
