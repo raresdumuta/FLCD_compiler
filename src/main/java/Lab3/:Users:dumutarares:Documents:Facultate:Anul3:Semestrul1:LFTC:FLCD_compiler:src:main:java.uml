@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/dumutarares/Documents/Facultate/Anul3/Semestrul1/LFTC/FLCD_compiler/src/main/java</OriginalElement>
+  <nodes>
+    <node x="0.0" y="0.0">Lab3.Codification</node>
+    <node x="113.875" y="160.0">Lab3.Main</node>
+    <node x="88.87500000000001" y="80.0">Lab3.MyScanner</node>
+    <node x="167.0" y="0.0">Lab2.DataSet.SymbolTable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Lab3.MyScanner" target="Lab3.Codification" relationship="CREATE">
+      <point x="-52.5" y="-15.0" />
+      <point x="106.37500000000001" y="60.0" />
+      <point x="36.75" y="60.0" />
+      <point x="-36.75" y="15.0" />
+    </edge>
+    <edge source="Lab3.Main" target="Lab3.MyScanner" relationship="CREATE">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Lab3.MyScanner" target="Lab3.Codification" relationship="TO_ONE">
+      <point x="-17.5" y="-15.0" />
+      <point x="141.375" y="50.0" />
+      <point x="110.25" y="50.0" />
+      <point x="36.75" y="15.0" />
+    </edge>
+    <edge source="Lab3.MyScanner" target="Lab2.DataSet.SymbolTable" relationship="CREATE">
+      <point x="52.5" y="-15.0" />
+      <point x="211.375" y="60.0" />
+      <point x="281.0" y="60.0" />
+      <point x="38.0" y="15.0" />
+    </edge>
+    <edge source="Lab3.MyScanner" target="Lab2.DataSet.SymbolTable" relationship="TO_ONE">
+      <point x="17.5" y="-15.0" />
+      <point x="176.375" y="60.0" />
+      <point x="205.0" y="60.0" />
+      <point x="-38.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.3256378173828125" showDependencies="true" x="341.2933457647018" y="73.68929636152262" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

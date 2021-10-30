@@ -1,6 +1,8 @@
 package Lab2.DataSet;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SymbolTable {
     // only 1 symbol table for constants and identifiers
@@ -63,7 +65,13 @@ public class SymbolTable {
     }
 
     public String toString(){
-        return "Symbol Table = " + Arrays.toString(symbolTable);
+        Map<String,Integer> SymbolTab = new HashMap<>();
+        for(int i = 0; i < symbolTable.length; i++){
+            if(symbolTable[i] != null){
+                SymbolTab.put(symbolTable[i],i);
+            }
+        }
+        return "Symbol Table = " + SymbolTab;
     }
 
 
