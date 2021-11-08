@@ -1,5 +1,9 @@
 package Lab3;
 
+import Lab4.FiniteAutomata;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 //        System.out.println("Starting program 1 \n");
@@ -25,4 +29,35 @@ public class Main {
 //        System.out.println();
 
     }
+
+    private void FiniteAutomataMenu(){
+        System.out.println("1. Display Fa");
+        System.out.println("2. Print States");
+        System.out.println("3. Check DFA");
+        System.out.println("4. Check if FA is valid");
+        System.out.println("5. Check sequence");
+        System.out.println("0. exit");
+    }
+
+    public void FinitieAutomata(FiniteAutomata finiteAutomata){
+        Scanner userInput = new Scanner(System.in);
+
+        while (true){
+            FiniteAutomataMenu();
+            String command = userInput.nextLine();
+            if(command.equals("1")){
+                System.out.println(finiteAutomata.toString());
+            } else if(command.equals("2")){
+                System.out.println(finiteAutomata.getSetOfStates());
+            } else if(command.equals("3")){
+                System.out.println(finiteAutomata.isDFA());
+            } else if(command.equals("5")){
+                String sequence = userInput.nextLine();
+                System.out.println(finiteAutomata.isAcceptedSequence(sequence));
+            } else if(command.equals("4")){
+
+            }
+        }
+    }
+
 }
