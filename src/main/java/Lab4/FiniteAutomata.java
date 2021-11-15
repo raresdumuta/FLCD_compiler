@@ -33,14 +33,6 @@ public class FiniteAutomata {
         return true;
     }
 
-    private String nextState(String startState, String value) {
-        for (var transition : transitionsList.keySet()) {
-            if (transitionsList.get(transition).equals(startState) && transition.getValue().equals(value))
-                if (transitionsList.get(transition).size() == 1)
-                    return transitionsList.get(transition).get(0);
-        }
-        return "No State Found";
-    }
 
     public boolean isAcceptedSequence(String inputSequence) {
         if(!isDFA()){
@@ -57,7 +49,6 @@ public class FiniteAutomata {
                 return false;
             }
         }
-        // Case: final state
         return this.finalStates.contains(currentState);
     }
 

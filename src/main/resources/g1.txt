@@ -1,0 +1,10 @@
+Set of Non-Terminals
+S,A,B
+Set of Terminals
+0,1
+Production
+S->0B|1A
+A->0|0S|1AA
+B->1|1S|0BB
+Starting Symbol
+S
