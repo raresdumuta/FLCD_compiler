@@ -2,10 +2,11 @@ package Lab3;
 
 import Lab4.FiniteAutomata;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 //        System.out.println("Starting program 1 \n");
 //        MyScanner scannerP1 = new MyScanner("src/main/resources/Problems/p1");
 //        scannerP1.scanFile();
@@ -17,11 +18,12 @@ public class Main {
 //        System.out.println();
 
 
-        System.out.println("Starting program 3 \n");
-        MyScanner scannerP3 = new MyScanner("src/main/resources/Problems/p3");
-        scannerP3.scanFile();
-        System.out.println();
+//        System.out.println("Starting program 3 \n");
+//        MyScanner scannerP3 = new MyScanner("src/main/resources/Problems/p3");
+//        scannerP3.scanFile();
+//        System.out.println();
 
+        FiniteAutomata(new FiniteAutomata("fa.in"));
 
 //        System.out.println("Starting program 1 with error \n");
 //        MyScanner scannerP1err = new MyScanner("src/main/resources/Problems/p1err");
@@ -30,16 +32,16 @@ public class Main {
 
     }
 
-    private void FiniteAutomataMenu(){
+    private static void FiniteAutomataMenu(){
         System.out.println("1. Display Fa");
         System.out.println("2. Print States");
         System.out.println("3. Check DFA");
-        System.out.println("4. Check if FA is valid");
-        System.out.println("5. Check sequence");
-        System.out.println("0. exit");
+        System.out.println("4. Check sequence");
+        System.out.println("5. Exit");
+
     }
 
-    public void FinitieAutomata(FiniteAutomata finiteAutomata){
+    public static void FiniteAutomata(FiniteAutomata finiteAutomata){
         Scanner userInput = new Scanner(System.in);
 
         while (true){
@@ -51,11 +53,11 @@ public class Main {
                 System.out.println(finiteAutomata.getSetOfStates());
             } else if(command.equals("3")){
                 System.out.println(finiteAutomata.isDFA());
-            } else if(command.equals("5")){
+            } else if(command.equals("4")){
                 String sequence = userInput.nextLine();
                 System.out.println(finiteAutomata.isAcceptedSequence(sequence));
-            } else if(command.equals("4")){
-
+            } else if(command.equals("5")){
+                    break;
             }
         }
     }

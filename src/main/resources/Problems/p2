@@ -3,7 +3,7 @@ START
 prime : true;
 div : 2;
 read(a);
- while ( div < a / 2 and prime = true ) {
+ while ( div ge a / 2 and prime = true ) {
 if ( a % div = 0 ) {
  prime : false;
 }

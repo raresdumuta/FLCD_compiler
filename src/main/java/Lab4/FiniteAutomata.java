@@ -2,16 +2,13 @@ package Lab4;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class FiniteAutomata {
 
     private List<String> setOfStates;
     private List<String> alphabet;
-    private List<Transition> transitionsList;
+    private final Map<AbstractMap.SimpleEntry<String, String>, List<String>> transitionsList;
     private List<String> finalStates;
     private String initialState;
     private String fileName;
@@ -20,15 +17,16 @@ public class FiniteAutomata {
         this.fileName = fileName;
         this.setOfStates = new ArrayList<>();
         this.alphabet = new ArrayList<>();
-        this.transitionsList = new ArrayList<>();
+        this.transitionsList = new HashMap<>();
         this.finalStates = new ArrayList<>();
         this.initialState = "";
         readFiniteAutomata();
     }
 
     public boolean isDFA() {
-        for (Transition transition : transitionsList) {
-            if (transition.getEndState().size() > 1) {
+        System.out.println(transitionsList);
+        for (var transition : transitionsList.keySet()) {
+            if (transitionsList.get(transition).size() > 1) {
                 return false;
             }
         }
@@ -36,33 +34,35 @@ public class FiniteAutomata {
     }
 
     private String nextState(String startState, String value) {
-        for (Transition transition: transitionsList) {
-            if (transition.getStartState().equals(startState) && transition.getValue().equals(value))
-                if (transition.getEndState().size() == 1)
-                    return transition.getEndState().get(0);
+        for (var transition : transitionsList.keySet()) {
+            if (transitionsList.get(transition).equals(startState) && transition.getValue().equals(value))
+                if (transitionsList.get(transition).size() == 1)
+                    return transitionsList.get(transition).get(0);
         }
         return "No State Found";
     }
 
-    public boolean isAcceptedSequence(String seq) {
+    public boolean isAcceptedSequence(String inputSequence) {
+        if(!isDFA()){
+            return false;
+        }
+
         String currentState = this.initialState;
-        String[] sequence = seq.split("");
-        for (String character : sequence) {
-            String nextState = nextState(currentState, character);
 
-            System.out.println(currentState + " " + character + " " + nextState);
-
-            // Case: no state
-            if (nextState.equals("No State Found")) return false;
-
-            currentState = nextState;
+        for (char character : inputSequence.toCharArray()) {
+            var key = new AbstractMap.SimpleEntry<>(currentState,String.valueOf(character));
+            if(this.transitionsList.containsKey(key)){
+                currentState = this.transitionsList.get(key).get(0);
+            } else {
+                return false;
+            }
         }
         // Case: final state
         return this.finalStates.contains(currentState);
     }
 
     public void readFiniteAutomata() throws FileNotFoundException {
-        File file = new File(this.fileName);
+        File file = new File("src/main/resources/fa.in");
         Scanner scanner = new Scanner(file);
 
         // Set of states
@@ -87,16 +87,16 @@ public class FiniteAutomata {
             }
 
             List<String> transitions = Arrays.asList(transition.split(","));
-            Transition model = new Transition();
-            model.setStartState(transitions.get(0));
-            model.setValue(transitions.get(1));
-            List<String> endStates = new ArrayList<String>();
-            for (int i = 2; i < transitions.size(); i++) {
-                endStates.add(transitions.get(i));
-            }
-            model.setEndState(endStates);
+            AbstractMap.SimpleEntry<String, String> model = new AbstractMap.SimpleEntry<>(transitions.get(0), transitions.get(1));
 
-            this.transitionsList.add(model);
+            String endStates = transitions.get(2);
+            if (transitionsList.containsKey(model)) {
+                if (!transitionsList.get(model).contains(endStates)) {
+                    transitionsList.get(model).add(endStates);
+                }
+            } else {
+                this.transitionsList.put(model, new ArrayList<>(Collections.singletonList(endStates)));
+            }
         }
 
         // Final states
