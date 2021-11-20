@@ -1,7 +1,5 @@
 package Lab5;
 
-import Lab3.Pair;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -10,14 +8,14 @@ public class Grammar {
     private String fileName;
     private List<String> terminals;
     private List<String> nonTerminals;
-    private Map<List<String>, List<String>> productions;
+    private Map<List<String>, List<List<String>>> productions; // 2nd parameter should be a list of list
     private String startingSymbol;
 
     public Grammar(String fileName) throws FileNotFoundException {
         this.fileName = fileName;
         this.nonTerminals = new ArrayList<>();
         this.terminals = new ArrayList<>();
-//        this.productions = new<>();
+        this.productions = new LinkedHashMap<>(); // linkedHasMap keeps the order of the entries
         this.startingSymbol = "";
         readGrammar();
     }
@@ -43,8 +41,13 @@ public class Grammar {
                 break;
             }
             List<String> productions = Arrays.asList(production.split("->"));
-            List<String> states = Arrays.asList(productions.get(1).split("\\|"));
-            AbstractMap.SimpleEntry<String, List<String>> model = new AbstractMap.SimpleEntry<>(productions.get(0), states);
+            List<String> allProductions = Arrays.asList(productions.get(0).split(""));
+            String[] states = productions.get(1).split("\\|");
+            List<List<String>> allStates = new ArrayList<>();
+            for (var state : states) {
+                allStates.add(Arrays.asList(state.split("")));
+            }
+            AbstractMap.SimpleEntry<List<String>, List<List<String>>> model = new AbstractMap.SimpleEntry<>(allProductions, allStates);
             if (this.productions.containsKey(model.getKey())) {
                 this.productions.get(model.getKey()).addAll(model.getValue());
             } else {
@@ -57,23 +60,28 @@ public class Grammar {
         System.out.println(validate() ? "Correct" : "Not Correct");
     }
 
-    private boolean validate(){
-        if(!nonTerminals.contains(startingSymbol)){
+    private boolean validate() {
+        if (!nonTerminals.contains(startingSymbol)) {
             return false;
         }
-        for(var key : this.productions.keySet()){
-            if(!nonTerminals.contains(key))
-                return false;
-            for(var move : this.productions.get(key)){
-                for( var chr:  move.toCharArray()){
-                    if(!nonTerminals.contains(String.valueOf(chr)) && !terminals.contains(String.valueOf(chr)) && chr != 'E' ){
-                        return false;
+        for (var key : this.productions.keySet()) {
+            for (var k : key) {
+                if (!nonTerminals.contains(k))
+                    return false;
+            }
+            for (var move : this.productions.get(key)) {
+                for (var list : move) { // iterating through each list from the set of productions
+                    for (var chr : list.toCharArray()) {
+                        if (!nonTerminals.contains(String.valueOf(chr)) && !terminals.contains(String.valueOf(chr)) && chr != 'E') {
+                            return false;
+                        }
                     }
                 }
             }
         }
         return true;
     }
+
     @Override
     public String toString() {
         return "Grammar" +
@@ -82,10 +90,16 @@ public class Grammar {
                 ", productions=" + productions;
     }
 
-    public List<String> productionForNonTerminal(String nonTerminal) {
-        if(this.nonTerminals.contains(nonTerminal)){
-            return Collections.singletonList("Not a terminal");
+    public List<List<String>> productionForNonTerminal(String nonTerminal) {
+        if(!this.nonTerminals.contains(nonTerminal)){
+            return Collections.singletonList(Collections.singletonList("Not a NonTerminal"));
         }
-        return this.productions.get(nonTerminal);
+        for(var prod: productions.entrySet()){
+            List<String> listOfProd = prod.getKey();
+            if(listOfProd.contains(nonTerminal)){
+                return this.productions.get(listOfProd);
+            }
+        }
+        return null;
     }
 }

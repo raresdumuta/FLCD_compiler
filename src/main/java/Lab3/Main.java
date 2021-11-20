@@ -4,6 +4,7 @@ import Lab4.FiniteAutomata;
 import Lab5.Grammar;
 
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,6 +36,7 @@ public class Main {
         System.out.println(grammar);
         System.out.println(grammar.productionForNonTerminal("A"));
         System.out.println(grammar.productionForNonTerminal("B"));
+        System.out.println(grammar.productionForNonTerminal("S"));
         System.out.println(grammar.productionForNonTerminal("C"));
 
     }
