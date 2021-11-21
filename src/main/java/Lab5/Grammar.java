@@ -8,7 +8,7 @@ public class Grammar {
     private String fileName;
     private List<String> terminals;
     private List<String> nonTerminals;
-    private Map<List<String>, List<List<String>>> productions; // 2nd parameter should be a list of list
+    private Map<List<String>, List<List<String>>> productions;
     private String startingSymbol;
 
     public Grammar(String fileName) throws FileNotFoundException {
@@ -101,5 +101,34 @@ public class Grammar {
             }
         }
         return null;
+    }
+
+    public boolean isCFG(){
+        Set<List<String>> keys = this.productions.keySet();
+        boolean checkStart = false;
+        for(List<String> key: keys) {
+            if (key.contains(this.startingSymbol)) {
+                checkStart = true;
+                break;
+            }
+        }
+        if(!checkStart)
+            return false;
+
+        for(List<String> key: keys){
+            if(key.size() > 1)
+                return false;
+            if(!this.nonTerminals.contains(key.get(0)))
+                return false;
+
+            List<List<String>> rules = this.productions.get(key);
+            for(var rule: rules){
+                for(var term: rule){
+                    if(!this.terminals.contains(term) && !this.nonTerminals.contains(term) && !term.equals("epsilon"))
+                        return false;
+                }
+            }
+        }
+        return true;
     }
 }

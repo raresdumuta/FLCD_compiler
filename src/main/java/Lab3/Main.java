@@ -38,6 +38,7 @@ public class Main {
         System.out.println(grammar.productionForNonTerminal("B"));
         System.out.println(grammar.productionForNonTerminal("S"));
         System.out.println(grammar.productionForNonTerminal("C"));
+        System.out.println("The grammar is CFG: " + grammar.isCFG());
 
     }
 
