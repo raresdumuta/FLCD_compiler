@@ -26,11 +26,11 @@ public class Grammar {
 
         String nonTerminalLabel = scanner.nextLine();
         String setOfNonTerminals = scanner.nextLine();
-        this.nonTerminals = Arrays.asList(setOfNonTerminals.split(","));
+        this.nonTerminals = Arrays.asList(setOfNonTerminals.split(" "));
 
         String terminalsLabel = scanner.nextLine();
         String setOfTerminals = scanner.nextLine();
-        this.terminals = Arrays.asList(setOfTerminals.split(","));
+        this.terminals = Arrays.asList(setOfTerminals.split(" "));
 
         String productionsLabel = scanner.nextLine();
         String production;
@@ -40,12 +40,12 @@ public class Grammar {
             if (production.equals("Starting Symbol")) {
                 break;
             }
-            List<String> productions = Arrays.asList(production.split("->"));
-            List<String> allProductions = Arrays.asList(productions.get(0).split(""));
-            String[] states = productions.get(1).split("\\|");
+            List<String> productions = Arrays.asList(production.split(" -> "));
+            List<String> allProductions = Arrays.asList(productions.get(0).split(" "));
+            String[] states = productions.get(1).split(" \\| ");
             List<List<String>> allStates = new ArrayList<>();
             for (var state : states) {
-                allStates.add(Arrays.asList(state.split("")));
+                allStates.add(Arrays.asList(state.split(" ")));
             }
             AbstractMap.SimpleEntry<List<String>, List<List<String>>> model = new AbstractMap.SimpleEntry<>(allProductions, allStates);
             if (this.productions.containsKey(model.getKey())) {
@@ -84,10 +84,10 @@ public class Grammar {
 
     @Override
     public String toString() {
-        return "Grammar" +
-                ", terminals=" + terminals +
-                ", nonTerminals=" + nonTerminals +
-                ", productions=" + productions;
+        return "Grammar" +  "\n" +
+                "terminals=" + terminals + "\n" +
+                "nonTerminals=" + nonTerminals +  "\n" +
+                "productions=" + productions;
     }
 
     public List<List<String>> productionForNonTerminal(String nonTerminal) {

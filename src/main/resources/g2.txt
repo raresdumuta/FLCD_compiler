@@ -1,0 +1,29 @@
+Set of Non-Terminals
+program statement singleStatement declarationStatement primitiveDeclaration arrayDeclaration type assignmentStatement conditionalStatement loopStatement writeStatement readStatement incrementStatement condition relation expression arithmeticOperator logicalOperator term constant structureDeclaration declarationList
+Set of Terminals
+START END ; int char string bool identifier ++ -- = + - * / % < <= >= > == != ! && || and or ( ) [ ] { } read write if else while struct
+Production
+program -> START statement END
+statement -> singleStatement | singleStatement statement
+singleStatement -> declarationStatement | assignmentStatement | conditionalStatement | loopStatement | writeStatement | readStatement | incrementStatement | structureDeclaration
+declarationStatement -> primitiveDeclaration | arrayDeclaration ;
+primitiveDeclaration -> type identifier
+arrayDeclaration -> type identifier [ constant ]
+type -> int | char | string | bool
+assignmentStatement -> identifier = expression ;
+incrementStatement -> identifier ++ | identifier -- ;
+conditionalStatement -> if ( condition ) { statement } | if ( condition ) { statement } else { statement }
+loopStatement -> while ( condition ) { statement }
+writeStatement -> write ( expression ) ;
+readStatement -> read ( identifier ) ;
+condition -> expression relation expression | condition logicalOperator condition | expression | ! condition
+relation -> < | <= | >= | > | == | !=
+logicalOperator -> && | || | and | or
+expression -> expression arithmeticOperator term | term
+arithmeticOperator -> + | - | * | / | %
+term -> ( expression ) | identifier | constant
+constant -> int | string | char | bool
+structureDeclaration -> struct identifier { declarationList }
+declarationList -> declarationStatement | declarationStatement declarationList
+Starting Symbol
+program

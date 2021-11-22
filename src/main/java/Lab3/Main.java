@@ -32,12 +32,12 @@ public class Main {
 //        System.out.println();
 //
 //        FiniteAutomata(new FiniteAutomata("fa.in"));
-        Grammar grammar = new Grammar("src/main/resources/g1.txt");
+        Grammar grammar = new Grammar("src/main/resources/g2.txt");
         System.out.println(grammar);
-        System.out.println(grammar.productionForNonTerminal("A"));
-        System.out.println(grammar.productionForNonTerminal("B"));
-        System.out.println(grammar.productionForNonTerminal("S"));
-        System.out.println(grammar.productionForNonTerminal("C"));
+//        System.out.println(grammar.productionForNonTerminal("A"));
+//        System.out.println(grammar.productionForNonTerminal("B"));
+//        System.out.println(grammar.productionForNonTerminal("S"));
+//        System.out.println(grammar.productionForNonTerminal("C"));
         System.out.println("The grammar is CFG: " + grammar.isCFG());
 
     }
