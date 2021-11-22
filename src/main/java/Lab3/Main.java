@@ -2,6 +2,7 @@ package Lab3;
 
 import Lab4.FiniteAutomata;
 import Lab5.Grammar;
+import Lab6.RecursiveDescendent;
 
 import java.io.FileNotFoundException;
 import java.util.Collections;
@@ -32,12 +33,20 @@ public class Main {
 //        System.out.println();
 //
 //        FiniteAutomata(new FiniteAutomata("fa.in"));
-        Grammar grammar = new Grammar("src/main/resources/g2.txt");
+        Grammar grammar = new Grammar("src/main/resources/g1.txt");
         System.out.println(grammar);
 //        System.out.println(grammar.productionForNonTerminal("A"));
 //        System.out.println(grammar.productionForNonTerminal("B"));
 //        System.out.println(grammar.productionForNonTerminal("S"));
 //        System.out.println(grammar.productionForNonTerminal("C"));
+
+        RecursiveDescendent recursiveDescendent = new RecursiveDescendent(grammar);
+        recursiveDescendent.expand();
+        recursiveDescendent.advance();
+        recursiveDescendent.expand();
+        recursiveDescendent.advance();
+        System.out.println("InputStack " + recursiveDescendent.configurationDTO.inputStack);
+        System.out.println("OutputSTack " + recursiveDescendent.configurationDTO.workingStack);
         System.out.println("The grammar is CFG: " + grammar.isCFG());
 
     }

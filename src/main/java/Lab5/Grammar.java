@@ -7,6 +7,19 @@ import java.util.*;
 public class Grammar {
     private String fileName;
     private List<String> terminals;
+
+    public List<String> getTerminals() {
+        return terminals;
+    }
+
+    public List<String> getNonTerminals() {
+        return nonTerminals;
+    }
+
+    public Map<List<String>, List<List<String>>> getProductions() {
+        return productions;
+    }
+
     private List<String> nonTerminals;
     private Map<List<String>, List<List<String>>> productions;
     private String startingSymbol;
@@ -84,51 +97,57 @@ public class Grammar {
 
     @Override
     public String toString() {
-        return "Grammar" +  "\n" +
+        return "Grammar" + "\n" +
                 "terminals=" + terminals + "\n" +
-                "nonTerminals=" + nonTerminals +  "\n" +
+                "nonTerminals=" + nonTerminals + "\n" +
                 "productions=" + productions;
     }
 
     public List<List<String>> productionForNonTerminal(String nonTerminal) {
-        if(!this.nonTerminals.contains(nonTerminal)){
+        if (!this.nonTerminals.contains(nonTerminal)) {
             return Collections.singletonList(Collections.singletonList("Not a NonTerminal"));
         }
-        for(var prod: productions.entrySet()){
+        for (var prod : productions.entrySet()) {
             List<String> listOfProd = prod.getKey();
-            if(listOfProd.contains(nonTerminal)){
+            if (listOfProd.contains(nonTerminal)) {
                 return this.productions.get(listOfProd);
             }
         }
         return null;
     }
 
-    public boolean isCFG(){
+    public boolean isCFG() {
         Set<List<String>> keys = this.productions.keySet();
         boolean checkStart = false;
-        for(List<String> key: keys) {
+        for (List<String> key : keys) {
             if (key.contains(this.startingSymbol)) {
                 checkStart = true;
                 break;
             }
         }
-        if(!checkStart)
+        if (!checkStart)
             return false;
 
-        for(List<String> key: keys){
-            if(key.size() > 1)
+        for (List<String> key : keys) {
+            if (key.size() > 1)
                 return false;
-            if(!this.nonTerminals.contains(key.get(0)))
+            if (!this.nonTerminals.contains(key.get(0)))
                 return false;
 
             List<List<String>> rules = this.productions.get(key);
-            for(var rule: rules){
-                for(var term: rule){
-                    if(!this.terminals.contains(term) && !this.nonTerminals.contains(term) && !term.equals("epsilon"))
+            for (var rule : rules) {
+                for (var term : rule) {
+                    if (!this.terminals.contains(term) && !this.nonTerminals.contains(term) && !term.equals("E"))
                         return false;
                 }
             }
         }
         return true;
     }
+
+
+    public String getStartingSymbol() {
+        return startingSymbol;
+    }
+
 }
