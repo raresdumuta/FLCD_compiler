@@ -11,7 +11,7 @@ public class RecursiveDescendent {
 
     public Grammar grammar;
     public ConfigurationDTO configurationDTO;
-    private final String sequence;
+    public String sequence;
 
     public RecursiveDescendent(Grammar newGrammar, String sequence) {
         this.sequence = sequence;
@@ -49,11 +49,19 @@ public class RecursiveDescendent {
             configurationDTO.inputStack.remove(headOfInputStack);
             configurationDTO.workingStack.add(headOfInputStack);
         }
-
+        else {
+            this.momentaryInsuccess();
+        }
     }
 
     public void momentaryInsuccess() {
-        String headOfInputStack = configurationDTO.inputStack.get(0);
+        String headOfInputStack = "E";
+        if (configurationDTO.inputStack.size() > 0){
+            headOfInputStack = configurationDTO.inputStack.get(0);
+        }
+        else {
+            configurationDTO.state = ConfigurationDTO.StateValues.b;
+        }
         if (grammar.getTerminals().contains(headOfInputStack) &&
                 !headOfInputStack.equals(String.valueOf(sequence.charAt(configurationDTO.position) + 1))) {
             configurationDTO.state = ConfigurationDTO.StateValues.b;
