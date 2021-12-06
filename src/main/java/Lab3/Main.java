@@ -40,13 +40,23 @@ public class Main {
 //        System.out.println(grammar.productionForNonTerminal("S"));
 //        System.out.println(grammar.productionForNonTerminal("C"));
 
-        RecursiveDescendent recursiveDescendent = new RecursiveDescendent(grammar);
+        RecursiveDescendent recursiveDescendent = new RecursiveDescendent(grammar,"0110");
         recursiveDescendent.expand();
         recursiveDescendent.advance();
         recursiveDescendent.expand();
         recursiveDescendent.advance();
+        recursiveDescendent.back();
+        recursiveDescendent.anotherTry();
+        recursiveDescendent.advance();
+        recursiveDescendent.expand();
+        recursiveDescendent.back();
+        recursiveDescendent.anotherTry();
+        recursiveDescendent.advance();
+        recursiveDescendent.expand();
+        recursiveDescendent.advance();
+        recursiveDescendent.success();
+        System.out.println("WorkingStack " + recursiveDescendent.configurationDTO.workingStack);
         System.out.println("InputStack " + recursiveDescendent.configurationDTO.inputStack);
-        System.out.println("OutputSTack " + recursiveDescendent.configurationDTO.workingStack);
         System.out.println("The grammar is CFG: " + grammar.isCFG());
 
     }
