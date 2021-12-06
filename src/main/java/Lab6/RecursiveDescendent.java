@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class RecursiveDescendent {
 
-    Grammar grammar;
+    public Grammar grammar;
     public ConfigurationDTO configurationDTO;
     private final String sequence;
 
@@ -73,26 +73,26 @@ public class RecursiveDescendent {
         String headOfWorkingStack = configurationDTO.workingStack.get(configurationDTO.workingStack.size() - 1);
         String stringValueOfHead = String.valueOf(headOfWorkingStack.charAt(0));
         int intValueOfHead = Integer.parseInt(String.valueOf(headOfWorkingStack.charAt(1))) + 1;
-        boolean existsProduction = false;
         if (grammar.getNonTerminals().contains(stringValueOfHead)) {
             Map<List<String>, List<List<String>>> productions = grammar.getProductions();
+            int i = 0;
             for (var p : productions.entrySet()) {
-                if (p.getKey().contains(stringValueOfHead) &&
-                        p.getValue().size() >= intValueOfHead) {
-                    configurationDTO.workingStack.remove(configurationDTO.workingStack.size() - 1);
-                    configurationDTO.workingStack.add(stringValueOfHead + intValueOfHead);
-                    configurationDTO.inputStack.clear();
-                    configurationDTO.inputStack.addAll(p.getValue().get(intValueOfHead - 1));
-                    configurationDTO.state = ConfigurationDTO.StateValues.q;
-                    existsProduction = true;
-                }
-            }
-            if (!existsProduction) {
-                if (configurationDTO.position == 1 && stringValueOfHead.equals(grammar.getStartingSymbol())) {
-                    configurationDTO.state = ConfigurationDTO.StateValues.e;
-                } else {
-                    configurationDTO.inputStack.add(stringValueOfHead);
-                    configurationDTO.workingStack.remove(headOfWorkingStack);
+                if (p.getKey().contains(stringValueOfHead)) {
+                    if (p.getValue().size() >= intValueOfHead) {
+                        configurationDTO.workingStack.remove(configurationDTO.workingStack.size() - 1);
+                        configurationDTO.workingStack.add(stringValueOfHead + intValueOfHead);
+                        configurationDTO.inputStack.removeAll(p.getValue().get(intValueOfHead - 2));
+                        configurationDTO.inputStack.addAll(p.getValue().get(intValueOfHead - 1));
+                        configurationDTO.state = ConfigurationDTO.StateValues.q;
+                    } else {
+                        if (configurationDTO.position == 1 && stringValueOfHead.equals(grammar.getStartingSymbol())) {
+                            configurationDTO.state = ConfigurationDTO.StateValues.e;
+                        } else {
+                            configurationDTO.inputStack.removeAll(p.getValue().get(intValueOfHead - 2));
+                            configurationDTO.inputStack.add(stringValueOfHead);
+                            configurationDTO.workingStack.remove(headOfWorkingStack);
+                        }
+                    }
                 }
             }
         }
