@@ -5,7 +5,7 @@ import Lab6.RecursiveDescendent;
 
 public class RecursiveDescendentAlgorithm {
 
-    private RecursiveDescendent recursiveDescendent;
+    private final RecursiveDescendent recursiveDescendent;
 
     public RecursiveDescendentAlgorithm(RecursiveDescendent newRecursiveDescendent) {
         this.recursiveDescendent = newRecursiveDescendent;
