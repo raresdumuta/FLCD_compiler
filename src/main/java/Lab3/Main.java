@@ -3,6 +3,7 @@ package Lab3;
 import Lab4.FiniteAutomata;
 import Lab5.Grammar;
 import Lab6.RecursiveDescendent;
+import Lab7.ParserOutput;
 import Lab7.RecursiveDescendentAlgorithm;
 
 import java.io.FileNotFoundException;
@@ -62,6 +63,8 @@ public class Main {
 
         RecursiveDescendentAlgorithm recursiveDescendentAlgorithm = new RecursiveDescendentAlgorithm(recursiveDescendent);
         recursiveDescendentAlgorithm.runParsing();
+        ParserOutput parserOutput = new ParserOutput(recursiveDescendent);
+
 
     }
 
