@@ -48,7 +48,7 @@ public class RecursiveDescendentAlgorithm {
         }
 
         if (recursiveDescendent.configurationDTO.state.equals(ConfigurationDTO.StateValues.e)) {
-            System.out.println("Error");
+            System.out.println("Error: impossible sequence");
         } else {
             System.out.println("Sequence Accepted");
             System.out.println("WorkingStack " + recursiveDescendent.configurationDTO.workingStack);

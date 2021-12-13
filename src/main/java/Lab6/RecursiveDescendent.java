@@ -43,7 +43,7 @@ public class RecursiveDescendent {
 
     public void advance() {
         String headOfInputStack = configurationDTO.inputStack.get(0);
-        if (grammar.getTerminals().contains(headOfInputStack) &&
+        if (grammar.getTerminals().contains(headOfInputStack) && configurationDTO.position <= sequence.length()  &&
                 headOfInputStack.equals(Character.toString(sequence.charAt(configurationDTO.position - 1)))) {
             configurationDTO.position++;
             configurationDTO.inputStack.remove(headOfInputStack);
@@ -62,8 +62,10 @@ public class RecursiveDescendent {
         else {
             configurationDTO.state = ConfigurationDTO.StateValues.b;
         }
-        if (grammar.getTerminals().contains(headOfInputStack) &&
-                !headOfInputStack.equals(String.valueOf(sequence.charAt(configurationDTO.position) + 1))) {
+        if(configurationDTO.position > sequence.length() && grammar.getTerminals().contains(headOfInputStack)){
+            configurationDTO.state = ConfigurationDTO.StateValues.b;
+        } else if (grammar.getTerminals().contains(headOfInputStack) &&
+                !headOfInputStack.equals(String.valueOf(sequence.charAt(configurationDTO.position -1)))) {
             configurationDTO.state = ConfigurationDTO.StateValues.b;
         }
     }

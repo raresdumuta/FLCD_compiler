@@ -42,7 +42,8 @@ public class Main {
 //        System.out.println(grammar.productionForNonTerminal("S"));
 //        System.out.println(grammar.productionForNonTerminal("C"));
 
-        RecursiveDescendent recursiveDescendent = new RecursiveDescendent(grammar,"0110");
+        RecursiveDescendent recursiveDescendent = new RecursiveDescendent(grammar,"00");
+//        RecursiveDescendent recursiveDescendent = new RecursiveDescendent(grammar,"01");
 //        recursiveDescendent.expand();
 //        recursiveDescendent.advance();
 //        recursiveDescendent.expand();
